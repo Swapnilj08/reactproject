@@ -19,7 +19,7 @@ const TaskDetail = ({task}) => {
       <p><strong>Details:</strong> {task.details}</p>
       <p><strong>Due Date:</strong> {task.dueDate}</p>
       <p><strong>Status:</strong> {task.status}</p>
-      <button onClick={() => navigate(`/task/update/${id}`)}>Update</button>
+      <button onClick={() => navigate(`/task/update/${task.id}`)}>Update</button>
       <button onClick={() => navigate("/")}>Back to List</button>
     </div>
   );

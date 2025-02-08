@@ -16,23 +16,12 @@ const TaskFormPage = () => {
     navigate("/");
   };
 
+  {console.log(id)}
   return (
-    // <form onSubmit={handleSubmit}>
-    //   <input
-    //     type="text"
-    //     placeholder="Title"
-    //     value={task.title}
-    //     onChange={(e) => setTask({ ...task, title: e.target.value })}
-    //   />
-    //   <textarea
-    //     placeholder="Details"
-    //     value={task.details}
-    //     onChange={(e) => setTask({ ...task, details: e.target.value })}
-    //   />
-    //   <button type="submit">{id ? "Update" : "Create"} Task</button>
-    // </form>
+    
+
     <>
-    <TaskForm/>
+    <TaskForm id={id}/>
     </>
   );
 };

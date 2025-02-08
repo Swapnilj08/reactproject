@@ -13,7 +13,7 @@ export const fetchTasks = async () => {
 export const getTaskById = async (id) => {
   //console.log(data);
   const userdata = data.find((task) => task.id === id);
-  //console.log(userdata);
+  console.log(userdata);
   
   return userdata;
 };

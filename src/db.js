@@ -21,7 +21,7 @@ const data =
     "status": "Completed",
     "description": "test task 3",
     "createdAt":"2025-02-02T17:10:34.139Z",
-    "dueDate":"2025-02-04T17:15:34.139Z"
+    "dueDate":"2025-02-02T17:15:34.139Z"
 }]
   
 

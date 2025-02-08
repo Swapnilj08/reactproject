@@ -3,6 +3,7 @@ import { fetchTasks, deleteTask } from "../services/taskService";
 import { AuthContext } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import React from "react";
+import { Button } from "react-bootstrap";
 
 const TaskList = ({tasks}) => {
   const { user } = useContext(AuthContext);
@@ -52,27 +53,31 @@ const TaskList = ({tasks}) => {
     <div>
       <h2>Task List</h2>
       <input
+        style={{ margin: "10px"}}
         type="text"
         placeholder="Search tasks..."
         value={search}
         onChange={(e) => setSearch(e.target.value)}
       />
-      <select onChange={(e) => setSortBy(e.target.value)}>
+      <button className="btn btn-primary" onClick={() => handleSearch(search)}>Search</button>
+    <select style={{ margin: "10px"}} onChange={(e) => setSortBy(e.target.value)}>
         <option value="title">Sort by Title</option>
         <option value="dueDate">Sort by Due Date</option>
       </select>
-      <button onClick={() => navigate("/task/create")}>Create Task</button>
+      <button className="btn btn-primary" onClick={() => navigate("/task/create")}>Create Task</button>
+    
+     
        
         <>
-            <table>
+            <table class="table">
  <thead>
   <tr>
-    <th>Title</th>
-    <th>Details</th>
-    <th>Due date</th>
-    <th>Status</th>
-    <th>Creator</th>
-    <th>Actions</th>
+    <th scope="col">Title</th>
+    <th scope="col">Details</th>
+    <th scope="col">Due date</th>
+    <th scope="col">Status</th>
+    <th scope="col">Creator</th>
+    <th scope="col">Actions</th>
   </tr>
   </thead>   
         {
@@ -90,8 +95,8 @@ const TaskList = ({tasks}) => {
     <td>{task.status}</td>
     <td>{task.creator}</td>
     <td>
-      <button onClick={() => navigate(`/task/${task.id}`)}>View</button>
-      <button onClick={() => handleDelete(task.id)}>Delete</button>
+      <Button variant="btn btn-primary" onClick={() => navigate(`/task/${task.id}`)}>View</Button>
+     <span/> <Button variant="btn btn-danger" onClick={() => handleDelete(task.id)}>Delete</Button>
     </td>
   </tr>
   </>
@@ -104,6 +109,7 @@ const TaskList = ({tasks}) => {
         <button
           onClick={() => paginate(currentPage - 1)}
           disabled={currentPage === 1}
+          className="btn btn-primary"
         >
           Previous
         </button>
@@ -111,6 +117,7 @@ const TaskList = ({tasks}) => {
         <button
           onClick={() => paginate(currentPage + 1)}
           disabled={currentPage === Math.ceil(filteredTasks.length / tasksPerPage)}
+          className="btn btn-primary"
         >
           Next
         </button>
@@ -120,3 +127,5 @@ const TaskList = ({tasks}) => {
 };
 
 export default TaskList;
+
+
