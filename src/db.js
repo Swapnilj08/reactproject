@@ -13,7 +13,7 @@ const data = [
     status: "Pending",
     description: "test task 2",
     createdAt: "2025-02-02",
-    dueDate: "2025-02-02",
+    dueDate: "2025-02-22",
   },
   {
     id: "3",
@@ -21,7 +21,7 @@ const data = [
     status: "Completed",
     description: "test task 3",
     createdAt: "2025-02-02",
-    dueDate: "2025-02-02",
+    dueDate: "2025-02-24",
   },
   {
     id: "4",
@@ -29,7 +29,7 @@ const data = [
     status: "Pending",
     description: "test task 4",
     createdAt: "2025-02-02",
-    dueDate: "2025-02-02",
+    dueDate: "2025-02-26",
   },
   {
     id: "5",
@@ -37,7 +37,7 @@ const data = [
     status: "Completed",
     description: "test task 5",
     createdAt: "2025-02-02",
-    dueDate: "2025-02-02",
+    dueDate: "2025-02-28",
   },
   {
     id: "6",
@@ -45,7 +45,7 @@ const data = [
     status: "Pending",
     description: "test task 6",
     createdAt: "2025-02-02",
-    dueDate: "2025-02-02",
+    dueDate: "2025-03-02",
   },
   {
     id: "7",
@@ -53,7 +53,7 @@ const data = [
     status: "Completed",
     description: "test task 7",
     createdAt: "2025-02-02",
-    dueDate: "2025-02-02",
+    dueDate: "2025-03-04",
   },
   {
     id: "8",
@@ -61,7 +61,7 @@ const data = [
     status: "Pending",
     description: "test task 8",
     createdAt: "2025-02-02",
-    dueDate: "2025-02-02",
+    dueDate: "2025-03-06",
   },
   {
     id: "9",
@@ -69,7 +69,7 @@ const data = [
     status: "Completed",
     description: "test task 9",
     createdAt: "2025-02-02",
-    dueDate: "2025-02-02",
+    dueDate: "2025-03-08",
   },
   {
     id: "10",
@@ -77,7 +77,7 @@ const data = [
     status: "Pending",
     description: "test task 10",
     createdAt: "2025-02-02",
-    dueDate: "2025-02-02",
+    dueDate: "2025-03-10",
   },
   {
     id: "11",
@@ -85,7 +85,7 @@ const data = [
     status: "Completed",
     description: "test task 11",
     createdAt: "2025-02-02",
-    dueDate: "2025-02-02",
+    dueDate: "2025-03-12",
   },
   {
     id: "12",
@@ -93,7 +93,7 @@ const data = [
     status: "Pending",
     description: "test task 12",
     createdAt: "2025-02-02",
-    dueDate: "2025-02-02",
+    dueDate: "2025-03-14",
   },
   {
     id: "13",
@@ -101,7 +101,7 @@ const data = [
     status: "Completed",
     description: "test task 13",
     createdAt: "2025-02-02",
-    dueDate: "2025-02-02",
+    dueDate: "2025-03-16",
   },
   {
     id: "14",
@@ -109,7 +109,7 @@ const data = [
     status: "Pending",
     description: "test task 14",
     createdAt: "2025-02-02",
-    dueDate: "2025-02-02",
+    dueDate: "2025-03-18",
   },
   {
     id: "15",
@@ -117,7 +117,7 @@ const data = [
     status: "Completed",
     description: "test task 15",
     createdAt: "2025-02-02",
-    dueDate: "2025-02-02",
+    dueDate: "2025-03-20",
   },
   {
     id: "16",
@@ -125,7 +125,7 @@ const data = [
     status: "Pending",
     description: "test task 16",
     createdAt: "2025-02-02",
-    dueDate: "2025-02-02",
+    dueDate: "2025-03-22",
   },
   {
     id: "17",
@@ -133,7 +133,7 @@ const data = [
     status: "Completed",
     description: "test task 17",
     createdAt: "2025-02-02",
-    dueDate: "2025-02-02",
+    dueDate: "2025-03-24",
   },
   {
     id: "18",
@@ -141,7 +141,7 @@ const data = [
     status: "Pending",
     description: "test task 18",
     createdAt: "2025-02-02",
-    dueDate: "2025-02-02",
+    dueDate: "2025-03-26",
   },
   {
     id: "19",
@@ -149,7 +149,7 @@ const data = [
     status: "Completed",
     description: "test task 19",
     createdAt: "2025-02-02",
-    dueDate: "2025-02-02",
+    dueDate: "2025-03-28",
   },
   {
     id: "20",
@@ -157,7 +157,8 @@ const data = [
     status: "Pending",
     description: "test task 20",
     createdAt: "2025-02-02",
-    dueDate: "2025-02-02",
+    dueDate: "2025-03-30",
   },
 ];
+
 export default data;

@@ -5,9 +5,9 @@ import { useNavigate } from "react-router-dom";
 import React from "react";
 import { Button } from "react-bootstrap";
 
-const TaskList = ({ tasks }) => {
+const TaskList = ({ tasks, updateTasks }) => {
   console.log(tasks);
-  
+
   const { user } = useContext(AuthContext);
   const [tasksList, setTasksList] = useState([]);
   const [search, setSearch] = useState("");
@@ -18,31 +18,30 @@ const TaskList = ({ tasks }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [postsPerPage, setPostsPerPage] = useState(5);
   const [currentTasks, setCurrentTasks] = useState([]);
-  
+
   useEffect(() => {
     setTasksList(Array.isArray(tasks) ? tasks : [tasks]);
   }, [tasks]);
 
   console.log(tasksList);
 
-
-
   useEffect(() => {
     console.log("I executed");
     if (tasksList.length > 0) {
       const lastPostIndex = currentPage * postsPerPage;
       const firstPostIdx = lastPostIndex - postsPerPage;
-
+      console.log("TASKS LIST", tasksList);
       setCurrentTasks(tasksList[0].slice(firstPostIdx, lastPostIndex));
-      
     }
   }, [tasksList, currentPage]);
 
-  const handleDelete = async (id) => {
-    const result = await deleteTask(id);
-    
-    console.log("delete result", result);
-    setTasksList(Array.isArray(result)? tasks : [tasks]);
+  const handleDelete = (id, updateTaskFn, tasks) => {
+    console.log("ID", id, "TASKS", tasks);
+    const result = deleteTask(id, tasks);
+
+    // console.log("delete result", result);
+    // setTasksList(Array.isArray(result) ? tasks : [tasks]);
+    updateTaskFn([result]);
   };
   const handleSearch = (tasksList) => {
     tasksList.map((task) => {
@@ -53,21 +52,30 @@ const TaskList = ({ tasks }) => {
     });
   };
   console.log(sortBy);
-  
-  const sortedTasks = () => {
-       console.log("sortTask called");
-       const sortByDate = [];
-    let sorted = [...tasksList];
-    if (sortBy === "dueDate") {
-      sortByDate = sorted.sort((a, b) => new Date(a.dueDate) < new Date(b.dueDate));
+
+  function sortedTasks(tasksCopy, sortOption) {
+    if (sortOption === "dueDate") {
+      tasksCopy.sort((a, b) => {
+        console.log(`${new Date(a.dueDate)} - ${new Date(b.dueDate)}`);
+        if (new Date(a.dueDate) - new Date(b.dueDate) > 0) {
+          console.log("1 executed");
+          return 1;
+        } else if (new Date(a.dueDate) - new Date(b.dueDate) < 0) {
+          console.log("2 executed");
+          return -1;
+        } else {
+          console.log("3 executed");
+          return 0;
+        }
+      });
     } else {
-      sorted.sort((a, b) => a.title.localeCompare(b.title));
+      tasksCopy.sort((a, b) => a.title.localeCompare(b.title));
     }
-    console.log(sortByDate);
-    
-    return sorted;
-  };
-  const filteredTasks = sortedTasks().filter(handleSearch);
+    console.log("SORT Option", sortOption);
+    console.log("SORTED ARRAY", tasksCopy);
+  }
+
+  // const filteredTasks = sortedTasks().filter(handleSearch);
 
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
   //console.log("YOHOHO Current Tasks", currentTasks);
@@ -87,8 +95,14 @@ const TaskList = ({ tasks }) => {
       </button>
       <select
         style={{ margin: "10px" }}
-        onChange={(e) => {setSortBy(e.target.value)
-          sortedTasks;
+        onChange={(e) => {
+          console.log("SORTING CHANGED", e.target.value);
+          setSortBy(e.target.value);
+          // sort the tasks
+          const tasksCopy = [...tasks[0]];
+          sortedTasks(tasksCopy, e.target.value);
+          console.log("SORTED ARRAY", tasksCopy);
+          updateTasks([tasksCopy]);
         }}
       >
         <option value="title">Sort by Title</option>
@@ -118,28 +132,30 @@ const TaskList = ({ tasks }) => {
             currentTasks.map((task) => (
               <>
                 <tbody>
-                <tr key={task.id}>
-                  <td>{task.title}</td>
-                  <td>{task.description}</td>
-                  <td>{new Date(task.dueDate).toLocaleDateString()}</td>
-                  <td>{task.status}</td>
-                  <td>{task.creator}</td>
-                  <td>
-                    <Button
-                      variant="btn btn-primary"
-                      onClick={() => navigate(`/task/${task.id}`)}
-                    >
-                      View
-                    </Button>
-                    <span />{" "}
-                    <Button
-                      variant="btn btn-danger"
-                      onClick={() => handleDelete(task.id)}
-                    >
-                      Delete
-                    </Button>
-                  </td>
-                </tr>
+                  <tr key={task.id}>
+                    <td>{task.title}</td>
+                    <td>{task.description}</td>
+                    <td>{new Date(task.dueDate).toLocaleDateString()}</td>
+                    <td>{task.status}</td>
+                    <td>{task.creator}</td>
+                    <td>
+                      <Button
+                        variant="btn btn-primary"
+                        onClick={() => navigate(`/task/${task.id}`)}
+                      >
+                        View
+                      </Button>
+                      <span />{" "}
+                      <Button
+                        variant="btn btn-danger"
+                        onClick={() =>
+                          handleDelete(task.id, updateTasks, tasks)
+                        }
+                      >
+                        Delete
+                      </Button>
+                    </td>
+                  </tr>
                 </tbody>
               </>
             ))}

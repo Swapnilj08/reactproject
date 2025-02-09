@@ -24,7 +24,7 @@ export const getTaskById = async (id) => {
 // export const createTask = async (taskData) => {
 //   //return await axios.post(`${API_URL}/add`, taskData);
 //   console.log("newTask Data", taskData);
-  
+
 //   const lastId = getLastId();
 //   const newId = lastId + 1;
 //   // const newData = data.map((d) => {
@@ -37,23 +37,21 @@ export const getTaskById = async (id) => {
 //   const newRecord=[...data, {id: newId, title: taskData.title, status: taskData.status, description: taskData.description, dueDate: taskData.dueDate}];
 // console.log("newRecord", newRecord);
 
-  
 // }
-
 
 // Function to add a new task
 export const createTask = async (taskData) => {
   const lastId = getLastId();
-  const newId = (parseInt(lastId) + 1).toString();  // Make sure to generate a unique ID
+  const newId = (parseInt(lastId) + 1).toString(); // Make sure to generate a unique ID
 
   // Add new record to the array in memory (simulate saving to a database)
-  const newTask = { 
-    id: newId, 
-    title: taskData.title, 
-    status: taskData.status, 
-    description: taskData.description, 
-    dueDate: taskData.dueDate, 
-    createdAt: new Date().toISOString().split("T")[0] // Automatically set createdAt
+  const newTask = {
+    id: newId,
+    title: taskData.title,
+    status: taskData.status,
+    description: taskData.description,
+    dueDate: taskData.dueDate,
+    createdAt: new Date().toISOString().split("T")[0], // Automatically set createdAt
   };
 
   // Add the new task to the data array (simulate adding to database)
@@ -62,11 +60,8 @@ export const createTask = async (taskData) => {
   console.log("New Task Added:", newTask);
   console.log("Updated Task List:", data);
 
-  return newTask;  // Returning the new task for confirmation (optional)
+  return newTask; // Returning the new task for confirmation (optional)
 };
-
-
-
 
 export const updateTask = async (id, taskData) => {
   // return await axios.put(`${API_URL}/update/${id}`, taskData);
@@ -90,22 +85,22 @@ export const getLastId = () => {
   }
   const lastRecord = data[data.length - 1];
   return lastRecord.id;
-}
+};
 
-export const deleteTask = async (id) => {
+export const deleteTask = (id, tasks) => {
   // Remove the task from the data array
-  const updatedData = data.filter((task) => task.id !== id);
+  const updatedData = tasks[0].filter((task) => task.id !== id);
 
   // Update the data array
   // In a real-world scenario, you would probably persist this change via an API
   // Here we just update the array in memory for this example.
-  console.log("Updated Task List after Deletion:", updatedData);
+  // console.log("Updated Task List after Deletion:", updatedData);
 
   // Set the updated data array back to the data variable (in-memory update)
-  data.length = 0; // Clear the current data
-  data.push(...updatedData); // Push the updated data back into the array
-  console.log("i am deleted", data);
-  
-//<TaskList updatedTasks={updatedData} />
+  // data.length = 0; // Clear the current data
+  // data.push(...updatedData); // Push the updated data back into the array
+  // console.log("i am deleted", data);
+
+  //<TaskList updatedTasks={updatedData} />
   return updatedData; // Return the updated list
 };

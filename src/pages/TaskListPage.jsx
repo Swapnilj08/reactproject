@@ -10,22 +10,19 @@ const TaskListPage = () => {
   const [tasks, setTasks] = useState([]);
   const [search, setSearch] = useState("");
   const navigate = useNavigate();
-  
-  
+
   useEffect(() => {
     fetchTasks().then((res) => {
-      setTasks([res]);    
-   })
+      setTasks([res]);
+    });
   }, []);
-
 
   return (
     <div>
-
       <ul>
-          {/* {console.log(tasks)
+        {/* {console.log(tasks)
           } */}
-      <TaskList tasks={tasks}/>
+        <TaskList tasks={tasks} updateTasks={setTasks} />
       </ul>
     </div>
   );
