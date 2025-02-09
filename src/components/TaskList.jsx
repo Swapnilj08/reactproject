@@ -56,14 +56,14 @@ const TaskList = ({ tasks }) => {
   
   const sortedTasks = () => {
        console.log("sortTask called");
-       
+       const sortByDate = [];
     let sorted = [...tasksList];
     if (sortBy === "dueDate") {
-      sorted.sort((a, b) => new Date(a.dueDate) < new Date(b.dueDate));
+      sortByDate = sorted.sort((a, b) => new Date(a.dueDate) < new Date(b.dueDate));
     } else {
       sorted.sort((a, b) => a.title.localeCompare(b.title));
     }
-    console.log(sorted);
+    console.log(sortByDate);
     
     return sorted;
   };
