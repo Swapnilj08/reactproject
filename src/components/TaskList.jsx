@@ -6,8 +6,10 @@ import React from "react";
 import { Button } from "react-bootstrap";
 
 const TaskList = ({ tasks }) => {
+  console.log(tasks);
+  
   const { user } = useContext(AuthContext);
-  // const [tasksList, setTasksList] = useState([]);
+  const [tasksList, setTasksList] = useState([]);
   const [search, setSearch] = useState("");
   const [sortBy, setSortBy] = useState("title");
 
@@ -16,43 +18,59 @@ const TaskList = ({ tasks }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [postsPerPage, setPostsPerPage] = useState(5);
   const [currentTasks, setCurrentTasks] = useState([]);
+  
+  useEffect(() => {
+    setTasksList(Array.isArray(tasks) ? tasks : [tasks]);
+  }, [tasks]);
+
+  console.log(tasksList);
+
+
 
   useEffect(() => {
     console.log("I executed");
-    if (tasks.length > 0) {
+    if (tasksList.length > 0) {
       const lastPostIndex = currentPage * postsPerPage;
       const firstPostIdx = lastPostIndex - postsPerPage;
 
-      setCurrentTasks(tasks[0].slice(firstPostIdx, lastPostIndex));
+      setCurrentTasks(tasksList[0].slice(firstPostIdx, lastPostIndex));
+      
     }
-  }, [tasks, currentPage]);
+  }, [tasksList, currentPage]);
 
   const handleDelete = async (id) => {
-    const newTasks = tasksList.filter((task) => task.id !== id);
-    setTasksList(newTasks);
+    const result = await deleteTask(id);
+    
+    console.log("delete result", result);
+    setTasksList(Array.isArray(result)? tasks : [tasks]);
   };
-  const handleSearch = (task) => {
-    task.map((task) => {
+  const handleSearch = (tasksList) => {
+    tasksList.map((task) => {
       return (
         task.title.toLowerCase().includes(search.toLowerCase()) ||
         task.description.toLowerCase().includes(search.toLowerCase())
       );
     });
   };
-
+  console.log(sortBy);
+  
   const sortedTasks = () => {
-    let sorted = [...tasks];
+       console.log("sortTask called");
+       
+    let sorted = [...tasksList];
     if (sortBy === "dueDate") {
-      sorted.sort((a, b) => new Date(a.dueDate) - new Date(b.dueDate));
+      sorted.sort((a, b) => new Date(a.dueDate) < new Date(b.dueDate));
     } else {
       sorted.sort((a, b) => a.title.localeCompare(b.title));
     }
+    console.log(sorted);
+    
     return sorted;
   };
   const filteredTasks = sortedTasks().filter(handleSearch);
 
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
-  console.log("YOHOHO Current Tasks", currentTasks);
+  //console.log("YOHOHO Current Tasks", currentTasks);
 
   return (
     <div>
@@ -69,7 +87,9 @@ const TaskList = ({ tasks }) => {
       </button>
       <select
         style={{ margin: "10px" }}
-        onChange={(e) => setSortBy(e.target.value)}
+        onChange={(e) => {setSortBy(e.target.value)
+          sortedTasks;
+        }}
       >
         <option value="title">Sort by Title</option>
         <option value="dueDate">Sort by Due Date</option>
@@ -97,7 +117,7 @@ const TaskList = ({ tasks }) => {
             currentTasks.length > 0 &&
             currentTasks.map((task) => (
               <>
-                {console.log(task)}
+                <tbody>
                 <tr key={task.id}>
                   <td>{task.title}</td>
                   <td>{task.description}</td>
@@ -120,6 +140,7 @@ const TaskList = ({ tasks }) => {
                     </Button>
                   </td>
                 </tr>
+                </tbody>
               </>
             ))}
         </table>
