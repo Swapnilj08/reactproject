@@ -157,7 +157,7 @@ const data = [
     status: "Pending",
     description: "test task 20",
     createdAt: "2025-02-02",
-    dueDate: "2025-02-02",
+    dueDate: "2025-01-02",
   },
 ];
 export default data;

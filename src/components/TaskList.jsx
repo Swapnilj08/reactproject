@@ -44,8 +44,8 @@ const TaskList = ({ tasks }) => {
     console.log("delete result", result);
     setTasksList(Array.isArray(result)? tasks : [tasks]);
   };
-  const handleSearch = (tasksList) => {
-    tasksList.map((task) => {
+  const handleSearch = (tasks) => {
+    tasks.map((task) => {
       return (
         task.title.toLowerCase().includes(search.toLowerCase()) ||
         task.description.toLowerCase().includes(search.toLowerCase())
@@ -55,15 +55,20 @@ const TaskList = ({ tasks }) => {
   console.log(sortBy);
   
   const sortedTasks = () => {
-       console.log("sortTask called");
-       const sortByDate = [];
+       //console.log("sortTask called");
+       
     let sorted = [...tasksList];
+    console.log(sortBy);
+    
     if (sortBy === "dueDate") {
-      sortByDate = sorted.sort((a, b) => new Date(a.dueDate) < new Date(b.dueDate));
+      sorted.sort((a, b) => {
+        console.log(a.dueDate, b.dueDate);
+        
+        new Date(a.dueDate) > new Date(b.dueDate)});
     } else {
       sorted.sort((a, b) => a.title.localeCompare(b.title));
     }
-    console.log(sortByDate);
+    console.log(sorted);
     
     return sorted;
   };
